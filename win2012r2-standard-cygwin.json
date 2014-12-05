@@ -32,10 +32,11 @@
         "floppy/zz-start-sshd.cmd"
       ],
       "tools_upload_flavor": "windows",
+      "version": "10",
       "shutdown_command": "shutdown /s /t 1 /f /d p:4:1 /c 'Packer Shutdown'",
-      "disk_size": 40960,
+      "disk_size": 51200,
       "vmx_data": {
-        "memsize": "768",
+        "memsize": "4096",
         "numvcpus": "1",
         "cpuid.coresPerSocket": "1",
         "scsi0.virtualDev": "lsisas1068"
@@ -67,9 +68,9 @@
         "floppy/oracle-cert.cer"
       ],
       "shutdown_command": "shutdown /s /t 1 /f /d p:4:1 /c 'Packer Shutdown'",
-      "disk_size": 40960,
+      "disk_size": 51200,
       "vboxmanage": [
-        ["modifyvm", "{{.Name}}", "--memory", "768"],
+        ["modifyvm", "{{.Name}}", "--memory", "4096"],
         ["modifyvm", "{{.Name}}", "--cpus", "1"],
         ["setextradata", "{{.Name}}", "VBoxInternal/CPUM/CMPXCHG16B", "1"]
       ]
@@ -85,13 +86,9 @@
       ],
       "execute_command": "{{.Vars}} cmd /c $(/bin/cygpath -m '{{.Path}}')",
       "scripts": [
-        "script/vagrant.bat",
-        "script/cmtool.bat",
         "script/vmtool.bat",
         "script/clean.bat",
-        "script/ultradefrag.bat",
-        "script/uninstall-7zip.bat",
-        "script/sdelete.bat"
+        "script/uninstall-7zip.bat"
       ]
     },
     {
@@ -104,6 +101,6 @@
     "keep_input_artifact": false,
     "compression_level": 1,
     "vagrantfile_template": "tpl/vagrantfile-win2012r2-standard-cygwin.tpl",
-    "output": "box/{{.Provider}}/win2012r2-standard-cygwin-{{user `cm`}}{{user `cm_version`}}-{{user `version`}}.box"
+    "output": "box/{{.Provider}}/win2012r2-IMSBaseBox.box"
   }]
 }
